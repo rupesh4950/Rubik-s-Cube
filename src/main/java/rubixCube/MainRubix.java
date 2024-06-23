@@ -1,5 +1,6 @@
 package rubixCube;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -24,7 +25,122 @@ public class MainRubix {
 	}
 
 	private static void findWhitesAndArrangePlus() {
-	
+		checkAll12Parts();
+		
+	}
+
+	private static void checkAll12Parts() {
+		System.out.println("sloveingg");
+		ArrayList top=getTopWhite();
+		for(int i=0;i<top.size();i++) {
+			String color=(String) top.get(i);
+			System.out.println(top.get(i));
+			if(color.charAt(1)=='w') {
+				System.out.println("already at possion");
+				continue;
+			}
+			if(color.charAt(1)=='r') {
+				//keep not filled on 3rd possion 
+				f();
+				print();
+				
+				while(checkWVlaisWhie(1,2)) {
+					System.out.println(checkWVlaisWhie(1,2));
+					//u operaion should be performed
+					u();
+				//	print();
+				}
+				System.out.println("at w 1,2 there is not white");
+							}
+			
+		}
+		
+	}
+
+	private static void u() {
+		// u operation should be performed
+		System.out.println("u opration performed");
+		char g[]=green[0];
+		green[0]=red[0];
+		char o[]=orange[0];
+		orange[0]=g;
+		char b[]=blue[0];
+		blue[0]=o;
+		red[0]=b;
+		
+		 char[] r0=white[0],r1=white[1],r2=white[2];
+		 for(int i=0;i<3;i++) {
+			 char c[]= {r2[i],r1[i],r0[i]};
+			 white[i]= c;
+		 }
+		
+	}
+
+	private static boolean checkWVlaisWhie(int i, int j) {
+		return white[i][j]=='w'?true:false;
+		
+	}
+
+	private static void f() {
+		System.out.println("f operation is performing");
+		char[] w=white[2];
+		char[]b=new char[3];
+		for(int i=0;i<3;i++) {
+			b[2-i]=blue[i][0];
+			blue[i][0]=w[i];
+		}
+		 char[] y=yellow[0];
+		 yellow[0]=b;
+		 char[] g=new char[3];
+		 for(int i=0;i<3;i++) {
+			 g[2-i]=green[i][2];
+			 green[i][2]=y[i];
+		 }
+		 white[2]=g;
+		 System.out.println("f operation perfomred");
+		 //now red should be swaped
+		 char[] r0=red[0],r1=red[1],r2=red[2];
+		 for(int i=0;i<3;i++) {
+			 char c[]= {r2[i],r1[i],r0[i]};
+			 red[i]= c;
+		 }
+	}
+
+	private static ArrayList<String> getTopWhite() {
+		ArrayList<String>whiteC=new ArrayList<String>();
+		//w01
+		if(white[0][1]=='w') {
+			whiteC.add("0w1");
+		}
+		else if(orange[0][1]=='w') {
+			whiteC.add("0o1");
+		}
+		////System.out.println(whiteC);
+		//w11
+		if(white[1][1]=='w') {
+			whiteC.add("1w1");
+		}
+		else if(green[0][1]=='w') {
+			whiteC.add("0g1");
+		}
+		//System.out.println(whiteC);
+		//w12
+		if(white[1][2]=='w') {
+			whiteC.add("1w2");
+		}
+		else if(green[0][1]=='w') {
+			whiteC.add("0b1");
+		}
+		//System.out.println(whiteC);
+		//w21
+		if(white[2][1]=='w') {
+			whiteC.add("2w1");
+		}
+		else if(red[0][1]=='w') {
+			whiteC.add("0r1");
+		}
+		//System.out.println(whiteC);
+		return whiteC;
 		
 	}
 

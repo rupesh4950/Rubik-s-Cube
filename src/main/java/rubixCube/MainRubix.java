@@ -81,6 +81,7 @@ public class MainRubix {
 						u();
 						u();
 					}
+				
 				}
 				{
 					System.out.println("is is empty");
@@ -90,31 +91,32 @@ public class MainRubix {
 				f();
 				f();
 				i=0;
-				getTopWhite();
+				top=getTopWhite();
 
 			}
 			// if it is at orange
 			if (color.charAt(1) == 'o') {
 				
 				b();
-//				b();
-//				b();
-//				ArrayList<Integer> l = getWhiteEmptyNumbers();
-//				if(!l.contains(3)) {
-//					if(l.contains(2)) {
-//						u();
-//						u();
-//					}
-//					else if(l.contains(3)) {
-//						u();
-//						u();
-//						u();
-//					}
-//				}
-//				else {
-//					System.out.println("already present at possiotin");
-//				}
-//				r();
+				b();
+				b();
+				ArrayList<Integer> l = getWhiteEmptyNumbers();
+				if(!l.contains(3)) {
+					if(l.contains(2)) {
+						u();
+						u();
+					}
+					else if(l.contains(3)) {
+						u();
+						u();
+						u();
+					}
+					
+				}
+				else {
+					System.out.println("already present at possiotin");
+				}
+				r();
 			}
 
 		}

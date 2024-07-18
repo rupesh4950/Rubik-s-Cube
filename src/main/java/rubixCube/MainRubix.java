@@ -3,6 +3,8 @@ package rubixCube;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 public class MainRubix {
@@ -12,7 +14,7 @@ public class MainRubix {
 	static char orange[][] = new char[3][];
 	static char green[][] = new char[3][];
 	static char yellow[][] = new char[3][];
-	static int itr=0;
+	static int itr = 0;
 
 //f f' l l' u u' r r' b b' d d'
 	// f front blue side
@@ -22,7 +24,7 @@ public class MainRubix {
 	// d blue to red
 	public static void main(String[] args) {
 		fillCollors();
-		//d_();
+		// d_();
 		slove();
 		printAll();
 	}
@@ -35,44 +37,225 @@ public class MainRubix {
 		makeAPlusWithWhite();
 		arrangeWhitesAtExacte();
 		setTheCorners();
-		
+
 	}
 
 	private static void setTheCorners() {
-		//firest set rwb
-		HashMap<Integer, String> val = getAllColorAtCorner();
+		// firest set rwb
+		setRWB();
+		setRWG();
+		setWGO();
+		setWBO();
+
+	}
+
+	private static void setWBO() {
+		System.out.println("===========================");
+		int possiton = getPossitonOf("wbo");
+		System.out.println("possition of WBO is " + possiton);
+		if(possiton==1) {
+			//no chance to present thre
+		}
+		else if(possiton==2) {
+			// at possition no need to change
+		}
+		else if(possiton==3) {
+			//no chance to present thre
+		}
+		else if(possiton==4) {
+			//no chance to present thre
+		}
+		else if(possiton==5) {
+			d();
+			d();
+		}
+		else if(possiton==6) {
+			d_();
+		}
+		else if(possiton==7) {
+			d();
+		}
+		else if(possiton==8) {
+			//no meed to do anythine
+		}
+		while(!(white[0][2]=='w'&&blue[0][2]=='b'&& orange[0][0]=='o')) {
+			l_();
+			d_();
+			l();
+			d();
+			
+		}
+	}
+
+	private static void setWGO() {
+		System.out.println("===========================");
+		int possiton = getPossitonOf("wgo");
+		System.out.println("possition of WGO is " + possiton);
+		if(possiton==1) {
+			// no need to do anything
+		}
+		else if(possiton==2) {
+			b_();
+			d();
+			b();
+			d();
+			d();
+		}
+		else if(possiton==3) {
+			//no change at 3
+		}
+		else if(possiton==4) {
+			// no chance at 4 already set the value
+		}
+		else if(possiton==5) {
+			d();
+		}
+		else if(possiton==6) {
+			d();
+			d();
+		}
+		else if(possiton==7) {
+			// mp meed pt dp anything
+		}
+		else if(possiton==8) {
+			d_();
+		}
+		while(!(white[0][0]=='w'&&green[0][0]=='g'&& orange[0][2]=='o')) {
+			r();
+			d();
+			r_();
+			d_();
+		}
+	}
+
+	private static void setRWG() {
+		System.out.println("===========================");
+		int possiton = getPossitonOf("wrg");
+		System.out.println("possition of WRG is " + possiton);
+		if(possiton==1) {
+			b();
+			d_();
+			b_();
+		}
+		else if(possiton==2) {
+			b_();
+			d();
+			d();
+			b();
+		}
+		else if(possiton==3) {
+			// no need to do anything
+		}
+		else if(possiton==4) {
+			// no chance to present at 4
+		}
+		else if(possiton==5) {
+			// no need to do anythine
+		}
+		else if(possiton==6) {
+			d();
+		}
+		else if(possiton==7) {
+			d_();
+		}
+		else if(possiton==8) {
+			d();
+			d();
+		}
 		
+		while(!(white[2][0]=='w'&&red[0][0]=='r'&& green[0][2]=='g')) {
+			r_();
+			d_();
+			r();
+			d();
+		}
+
+	}
+
+	private static void setRWB() {
+		int possiton = getPossitonOf("wrb");
+		System.out.println("possition of wrb is " + possiton);
+		if (possiton == 1) {
+			b();
+			d_();
+			b_();
+			d();
+		} else if (possiton == 2) {
+			b_();
+			d();
+			b();
+		} else if (possiton == 3) {
+			r_();
+			d_();
+			r();
+		} else if (possiton == 4) {
+			// no need to perform any action already at possion
+		} else if (possiton == 5) {
+			d_();
+		} else if (possiton == 6) {// no need to perform any action already at possion
+
+		} else if (possiton == 7) {
+			d();
+			d();
+		}
+		else if(possiton==8) {
+			d();
+		}
+		while(!(white[2][2]=='w'&&red[0][2]=='r'&& blue[0][0]=='b')) {
+			l();
+			d();
+			l_();
+			d_();
+		}
+	}
+
+	
+
+	private static Integer getPossitonOf(String c) {
+		HashMap<Integer, String> val = getAllColorAtCorner();
+		Integer i = -1;
+		for (Map.Entry<Integer, String> v : val.entrySet()) {
+			System.out.println(v.getKey() + " : " + v.getValue());
+			String s = v.getValue();
+			if (s.contains(c.charAt(0) + "") && s.contains(c.charAt(1) + "") && s.contains(c.charAt(2) + "")) {
+				// return v.getKey();// uncomment work fined
+				i = v.getKey();
+			}
+		}
+		//
+		return i;
+
 	}
 
 	private static HashMap<Integer, String> getAllColorAtCorner() {
-		HashMap<Integer, String> val=new HashMap<Integer, String>();
-		String s=""+white[0][0]+green[0][0]+orange[0][2];
+		HashMap<Integer, String> val = new HashMap<Integer, String>();
+		String s = "" + white[0][0] + green[0][0] + orange[0][2];
 		val.put(1, s);
-		s=""+white[0][2]+blue[0][2]+orange[0][0];
+		s = "" + white[0][2] + blue[0][2] + orange[0][0];
 		val.put(2, s);
-		s=""+white[2][0]+green[0][2]+red[0][0];
-		val.put(3,s);
-		s=""+white[2][2]+blue[0][0]+red[0][2];
-		val.put(4,s);
+		s = "" + white[2][0] + green[0][2] + red[0][0];
+		val.put(3, s);
+		s = "" + white[2][2] + blue[0][0] + red[0][2];
+		val.put(4, s);
 		///////////
-		s=""+yellow[2][2]+green[2][2]+red[2][0];
-		val.put(5,s);
-		s=""+yellow[2][0]+blue[2][0]+red[2][2];
-		val.put(6,s);
-		s=""+yellow[0][2]+blue[2][2]+orange[2][0];
-		val.put(7,s);
-		s=""+yellow[0][0]+green[2][0]+orange[2][2];
+		s = "" + yellow[2][2] + green[2][2] + red[2][0];
+		val.put(5, s);
+		s = "" + yellow[2][0] + blue[2][0] + red[2][2];
+		val.put(6, s);
+		s = "" + yellow[0][2] + green[2][0] + orange[2][2];
+		val.put(7, s);
+		s = "" + yellow[0][0] + blue[2][2] + orange[2][0];
+		val.put(8, s);
 		return val;
-		
-		
+
 	}
 
 	private static void arrangeWhitesAtExacte() {
-		 HashMap<Integer, Character> v = getLocationsOfOthersColorsWithPluesMiddles();
-		 if(v.get(1)!='o') {
-			 System.out.println("its not equral to orange need ot change");
-			int n= getIndexOfColor('o',v);
-			if(n==2) {
+		HashMap<Integer, Character> v = getLocationsOfOthersColorsWithPluesMiddles();
+		if (v.get(1) != 'o') {
+			System.out.println("its not equral to orange need ot change");
+			int n = getIndexOfColor('o', v);
+			if (n == 2) {
 				r();
 				r();
 				d();
@@ -82,7 +265,7 @@ public class MainRubix {
 				r();
 				r();
 			}
-			if(n==3) {
+			if (n == 3) {
 				l();
 				l();
 				d_();
@@ -92,7 +275,7 @@ public class MainRubix {
 				l();
 				l();
 			}
-			if(n==4) {
+			if (n == 4) {
 				f();
 				f();
 				d();
@@ -104,34 +287,32 @@ public class MainRubix {
 				f();
 				f();
 			}
-			 v = getLocationsOfOthersColorsWithPluesMiddles();
-		 }
-		 if(v.get(2)!='g') {
-			 System.out.println("its not equral to green need ot change");
-			 int n= getIndexOfColor('g',v);
-			 if(n==1) {
-				 b();
-				 b();
-				 d_();
-				 r();
-				 r();
-				 d();
-				 b();
-			 }
-			 else if(n==3) {
-				 l();
-				 l();
-				 d();
-				 d();
-				 r();
-				 r();
-				 d();
-				 d();
-				 l();
-				 l();
-				
-			 }
-			 else if(n==4) {
+			v = getLocationsOfOthersColorsWithPluesMiddles();
+		}
+		if (v.get(2) != 'g') {
+			System.out.println("its not equral to green need ot change");
+			int n = getIndexOfColor('g', v);
+			if (n == 1) {
+				b();
+				b();
+				d_();
+				r();
+				r();
+				d();
+				b();
+			} else if (n == 3) {
+				l();
+				l();
+				d();
+				d();
+				r();
+				r();
+				d();
+				d();
+				l();
+				l();
+
+			} else if (n == 4) {
 				f();
 				f();
 				d();
@@ -140,67 +321,64 @@ public class MainRubix {
 				d_();
 				f();
 				f();
-			 }
-			 v = getLocationsOfOthersColorsWithPluesMiddles();
-			 
-		 }
-		 if(v.get(3)!='b') {
-			 System.out.println("its not equral to blue need ot change");
-			 int n= getIndexOfColor('b',v);
-			 if(n==1) {
-				 b();
-				 b();
-				 d();
-				 l();
-				 l();
-				 d_();
-				 b();
-				 b();
-				 v.put(1, v.get(3));
-			 }
-			 else if(n==2) {
-				 r();
-				 r();
-				 d();
-				 d();
-				 l();
-				 l();
-				 d();
-				 d();
-				 r();
-				 r();
-				 v.put(2, v.get(3));
-			 }
-			 else if (n==4) {
-				 f();
-				 f();
-				 d_();
-				 l();
-				 l();
-				 d();
-				 f();
-				 f();
-				 v.put(4,v.get(3));
-			 }
-			 v = getLocationsOfOthersColorsWithPluesMiddles();
-		 }
-		 if(v.get(4)!='r') {
-			 System.out.println("its not equral to red need ot change");
-			 int n= getIndexOfColor('r',v);
-			 if(n==1) {
-				 b();
-				 b();
-				 d();
-				 d();
-				 f();
-				 f();
-				 d();
-				 d();
-				 b();
-				 b();
-				 v.put(1,v.get(4));
-			 }
-			 else if(n==2) {
+			}
+			v = getLocationsOfOthersColorsWithPluesMiddles();
+
+		}
+		if (v.get(3) != 'b') {
+			System.out.println("its not equral to blue need ot change");
+			int n = getIndexOfColor('b', v);
+			if (n == 1) {
+				b();
+				b();
+				d();
+				l();
+				l();
+				d_();
+				b();
+				b();
+				v.put(1, v.get(3));
+			} else if (n == 2) {
+				r();
+				r();
+				d();
+				d();
+				l();
+				l();
+				d();
+				d();
+				r();
+				r();
+				v.put(2, v.get(3));
+			} else if (n == 4) {
+				f();
+				f();
+				d_();
+				l();
+				l();
+				d();
+				f();
+				f();
+				v.put(4, v.get(3));
+			}
+			v = getLocationsOfOthersColorsWithPluesMiddles();
+		}
+		if (v.get(4) != 'r') {
+			System.out.println("its not equral to red need ot change");
+			int n = getIndexOfColor('r', v);
+			if (n == 1) {
+				b();
+				b();
+				d();
+				d();
+				f();
+				f();
+				d();
+				d();
+				b();
+				b();
+				v.put(1, v.get(4));
+			} else if (n == 2) {
 				r();
 				r();
 				d_();
@@ -209,52 +387,51 @@ public class MainRubix {
 				d();
 				r();
 				r();
-				v.put(2,v.get(4));
-			 }
-			 else if(n==3) {
-				 l();
-				 l();
-				 d();
-				 f();
-				 f();
-				 d_();
-				 l();
-				 l();
-				 v.put(3,v.get(4));
-			 }
-			 v = getLocationsOfOthersColorsWithPluesMiddles();
-		 }
-		
+				v.put(2, v.get(4));
+			} else if (n == 3) {
+				l();
+				l();
+				d();
+				f();
+				f();
+				d_();
+				l();
+				l();
+				v.put(3, v.get(4));
+			}
+			v = getLocationsOfOthersColorsWithPluesMiddles();
+		}
+
 	}
 
 	private static int getIndexOfColor(char c, HashMap<Integer, Character> v) {
-		if(v.get(1)==c) {
+		if (v.get(1) == c) {
 			return 1;
 		}
-		if(v.get(2)==c) {
+		if (v.get(2) == c) {
 			return 2;
 		}
-		if(v.get(3)==c) {
+		if (v.get(3) == c) {
 			return 3;
 		}
-		if(v.get(4)==c) {
+		if (v.get(4) == c) {
 			return 4;
 		}
 		return c;
-		
+
 	}
 
 	private static HashMap<Integer, Character> getLocationsOfOthersColorsWithPluesMiddles() {
-		HashMap<Integer,Character> val=new HashMap<Integer, Character>();
-		char c[]=new char[4];
-		c[0]= orange[0][1];
-		
+		HashMap<Integer, Character> val = new HashMap<Integer, Character>();
+		char c[] = new char[4];
+		c[0] = orange[0][1];
+
 		val.put(1, orange[0][1]);
 		val.put(2, green[0][1]);
 		val.put(3, blue[0][1]);
 		val.put(4, red[0][1]);
 		return val;
-		
+
 	}
 
 	private static void makeAPlusWithWhite() {
@@ -300,7 +477,6 @@ public class MainRubix {
 
 		}
 
-		
 	}
 
 	private static void sloveMiddleWhiteAtYellow(String s) {
@@ -384,7 +560,6 @@ public class MainRubix {
 		}
 
 	}
-
 
 	private static void sloveMiddleWhiteAtRed(String s) {
 		System.out.println("==========");
@@ -616,7 +791,7 @@ public class MainRubix {
 	}
 
 	private static void l_() {
-		System.out.println(++itr+ " perform l *");
+		System.out.println(++itr + " perform l *");
 		char c[] = new char[3];
 		for (int i = 0; i < 3; i++) {
 			c[i] = white[i][2];
@@ -629,7 +804,7 @@ public class MainRubix {
 	}
 
 	private static void l() {
-		System.out.println(++itr+" perform l ");
+		System.out.println(++itr + " perform l ");
 		char c[] = new char[3];
 		for (int i = 0; i < 3; i++) {
 			c[i] = white[i][2];
@@ -642,7 +817,7 @@ public class MainRubix {
 	}
 
 	private static void d_() {
-		System.out.println(++itr+" perform d * down green to red ");
+		System.out.println(++itr + " perform d * down green to red ");
 		char c[] = red[2];
 		red[2] = green[2];
 		green[2] = orange[2];
@@ -653,7 +828,7 @@ public class MainRubix {
 	}
 
 	private static void d() {
-		System.out.println(++itr+" perform d down blue to red");
+		System.out.println(++itr + " perform d down blue to red");
 		char c[] = red[2];
 		red[2] = blue[2];
 		blue[2] = orange[2];
@@ -664,7 +839,7 @@ public class MainRubix {
 	}
 
 	private static void b_() {
-		System.out.println(++itr+" perfom b * form green to white");
+		System.out.println(++itr + " perfom b * form green to white");
 		char c[] = new char[3];
 		for (int i = 0; i < 3; i++) {
 			c[i] = white[0][i];
@@ -678,7 +853,7 @@ public class MainRubix {
 	}
 
 	private static void b() {
-		System.out.println(++itr+" perfom b form blue to white");
+		System.out.println(++itr + " perfom b form blue to white");
 		char c[] = new char[3];
 		for (int i = 0; i < 3; i++) {
 			c[i] = white[0][i];
@@ -692,7 +867,7 @@ public class MainRubix {
 	}
 
 	private static void r_() {
-		System.out.println(++itr+" perform r *");
+		System.out.println(++itr + " perform r *");
 		char c[] = new char[3];
 		for (int i = 0; i < 3; i++) {
 			c[i] = white[i][0];
@@ -706,7 +881,7 @@ public class MainRubix {
 	}
 
 	private static void r() {
-		System.out.println(++itr+" perform r");
+		System.out.println(++itr + " perform r");
 		char c[] = new char[3];
 		for (int i = 0; i < 3; i++) {
 			c[i] = white[i][0];
@@ -720,7 +895,7 @@ public class MainRubix {
 	}
 
 	private static void u_() {
-		System.out.println(++itr+" perform u *");
+		System.out.println(++itr + " perform u *");
 		char c[] = red[0];
 		red[0] = green[0];
 		green[0] = orange[0];
@@ -731,7 +906,7 @@ public class MainRubix {
 	}
 
 	private static void u() {
-		System.out.println(++itr+" perorm u");
+		System.out.println(++itr + " perorm u");
 		char r[] = red[0];
 		red[0] = blue[0];
 		blue[0] = orange[0];
@@ -742,7 +917,7 @@ public class MainRubix {
 	}
 
 	private static void f_() {
-		System.out.println(++itr+" perform f *");
+		System.out.println(++itr + " perform f *");
 		char w[] = new char[3];
 		for (int i = 0; i < 3; i++) {
 			w[i] = white[2][i];
@@ -756,7 +931,7 @@ public class MainRubix {
 	}
 
 	private static void f() {
-		System.out.println(++itr+ " perform f");
+		System.out.println(++itr + " perform f");
 		char w[] = new char[3];
 
 		for (int i = 0; i < 3; i++) {
@@ -793,12 +968,12 @@ public class MainRubix {
 	}
 
 	private static void fillCollors() {
-		String w = "oobowrgbr";
-		String r = "wybbrgggy";
-		String b = "wwoybobyy";
-		String o = "wggwogobb";
-		String g = "wyrwgwyoy";
-		String y = "grrryborr";
+		String w = "rggbwwbgg";
+		String r = "woobrgrgy";
+		String b = "yrrybbbyw";
+		String o = "wwyooogor";
+		String g = "byoygrwwg";
+		String y = "owbrybory";
 
 		white = fill(w);
 		red = fill(r);

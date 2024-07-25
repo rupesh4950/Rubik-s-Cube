@@ -31,6 +31,391 @@ public class MainRubix {
 
 	private static void slove() {
 		sloveFirstLayer();
+		sloveSecondLayer();
+		sloveThirdLayer();
+	}
+
+	private static void sloveThirdLayer() {
+		// keep red on your side ---only dev
+		// f l r u d --   b
+		
+		
+	}
+
+	private static void yb_() {
+		b_();
+		
+	}
+
+	private static void yb() {
+		b();
+		
+	}
+
+	private static void yd_() {
+		u();
+		
+	}
+
+	private static void yd() {
+		u_();
+		
+	}
+
+	private static void yu_() {
+		d();
+		
+	}
+
+	private static void yu() {
+		d_();
+		
+	}
+
+	private static void yr() {
+		l();
+		
+	}
+
+	private static void yr_() {
+		l_();
+		
+	}
+
+	private static void yl_() {
+		r_();
+		
+	}
+
+	private static void yl() {
+		r();
+		
+	}
+
+	private static void yf_() {
+		f_();
+		
+	}
+
+	private static void yf() {
+		f();
+		
+	}
+
+	private static void sloveSecondLayer() {
+		redAndGreenMiddle();
+		redAndBlueMiddle();
+		orangeAndBlue();
+		orangeAndGreen();
+		
+		
+	}
+
+	private static void orangeAndGreen() {
+		System.out.println("=========");
+		int p=findPossitionOf("og");
+		System.out.println(p);
+		if(p==0) {
+			System.out.println("something went wrong check the colour inputs");
+			return;
+		}
+		if(p==4) {
+			if(orange[1][2]=='o') {
+				System.out.println("orange and green is alreday at possition");
+				return;
+			}
+			else {
+				m4Down();
+			}
+		}
+		p=findPossitionOf("og");
+		System.out.println("og"+p);
+		int truns=(7-p);
+		boolean entered=false;
+		while(truns>0) {
+			entered=true;
+			d_();
+			truns--;
+		}
+		if(!entered) {
+			truns=Math.abs(truns);
+			while(truns>0) {
+				entered=true;
+				d();
+				truns--;
+			}
+		}
+		System.out.println("orange and green is at down seta the  down -------");
+		if(orange[2][1]=='o') {
+			System.out.println("orange is on top green down");
+			m3Down();
+		}
+		else {
+			System.out.println("green is on top orange down");
+			d();
+			d();
+			b();
+			d();
+			b_();
+			d();
+			r();
+			d_();
+			r_();
+		}
+		
+		
+		
+	}
+
+	private static void orangeAndBlue() {
+		System.out.println("=========");
+		int p=findPossitionOf("ob");
+		System.out.println(p);
+		if(p==0) {
+			System.out.println("something went wrong check the colour inputs");
+			return;
+		}
+		if(p==3) {
+			if(orange[1][0]=='o') {
+				System.out.println("orange and blue is already  at the possiton");
+				return ;
+			}
+			else {
+				m3Down();
+			}
+		}
+		else if(p==4) {
+			m4Down();
+		}
+		
+		p=findPossitionOf("ob");
+		System.out.println("ob"+p);
+		int truns=(7-p);
+		boolean entered=false;
+		while(truns>0) {
+			entered=true;
+			d_();
+			truns--;
+		}
+		if(!entered) {
+			truns=Math.abs(truns);
+			while(truns>0) {
+				entered=true;
+				d();
+				truns--;
+			}
+		}
+		System.out.println("orange and blue is at down seta the  down -------");
+		if(orange[2][1]=='o') {
+			System.out.println("orange is on top blue down");
+			m3Down();
+		}
+		else {
+			System.out.println("blue is on top orange is down");
+			d();
+			d();
+			b_();
+			d_();
+			b();
+			d_();
+			l_();
+			d();
+			l();
+		}
+		
+		
+		
+	}
+
+	private static void redAndBlueMiddle() {
+		System.out.println("=========");
+		int p=findPossitionOf("rb");
+		System.out.println(p);
+		if(p==0) {
+			System.out.println("something went wrong check the colour inputs");
+			return;
+		}
+		if(p<=4) {
+			if(p==2) {
+				if(red[1][2]=='r') {
+					System.out.println("red and blue alreday at place ");
+					return ;
+				}
+				else {
+					// m2 to down
+					m2Down();
+				
+				}
+			}
+			else if(p==3) {
+				//m3 down
+				m3Down();
+			}
+			else if(p==4) {
+				m4Down();
+			}
+		}
+		p=findPossitionOf("rb");
+		System.out.println("rb "+p);
+		int truns=p-5;
+		
+		while(truns>0) {
+			d();
+			truns--;
+		}
+		System.out.println("red and blue is at down seta the  down -------");
+		if(red[2][1]=='r') {
+			System.out.println("red is on top blue down");
+			m2Down();
+		}
+		else {
+			System.out.println("blue is on top red is down");
+			d();
+			d();
+			f();
+			d();
+			f_();
+			d();
+			l();
+			d_();
+			l_();		
+		}
+		
+	}
+
+	private static void redAndGreenMiddle() {
+		System.out.println("=========");
+		int p=findPossitionOf("rg");
+		System.out.println(p);
+		if(p==0) {
+			System.out.println("something went wrong check the colour inputs");
+			return;
+		}
+		if(p<=4) {
+			if(p==1) {
+				if(red[1][0]=='r') {
+					System.out.println("red and green alreday at place ");
+					return ;
+				}
+				else {
+					// m1 to down
+					m1Down();
+				
+				}
+			}
+			else if(p==2) {
+				// m2 to down
+				m2Down();
+			}
+			else if(p==3) {
+				//m3 down
+				m3Down();
+			}
+			else if(p==4) {
+				m4Down();
+			}
+		}
+		p=findPossitionOf("rg");
+		System.out.println("rg "+p);
+		int truns=p-5;
+		
+		while(truns>0) {
+			d();
+			truns--;
+		}
+		System.out.println("set at the down -------");
+		if(red[2][1]=='r') {
+			// red at possition
+			System.out.println("red is on the middle top");
+			m1Down();	
+		}
+		else {
+			//green is on top
+			System.out.println("green is on to middle top");
+			d();
+			d();
+			f_();
+			d_();
+			f();
+			d_();
+			r_();
+			d();
+			r();	
+		}
+		
+	}
+
+	private static void m4Down() {
+		d_();
+		b();
+		d();
+		b_();
+		d();
+		r();
+		d_();
+		r_();	
+	}
+
+	private static void m3Down() {
+		d();
+		b_();
+		d_();
+		b();
+		d_();
+		l_();
+		d();
+		l();
+		
+	}
+
+	private static void m2Down() {
+		d();
+		l();
+		d_();
+		l_();
+		d_();
+		f();
+		d();
+		f_();
+		
+	}
+
+	private static void m1Down() {
+		d_();
+		r_();
+		d();
+		r();
+		d();
+		f_();
+		d_();
+		f();
+		
+	}
+
+	private static int findPossitionOf(String s) {
+//		char c=s.charAt(0);
+//		char d=s.charAt(1);
+		if(s.contains(red[1][0]+"") && s.contains(green[1][2]+""))
+			return 1;
+		else if (s.contains(red[1][2]+"") && s.contains(blue[1][0]+""))
+			return 2;
+		else if (s.contains(orange[1][0]+"") && s.contains(blue[1][2]+""))
+			return 3;
+		else if (s.contains(orange[1][2]+"") && s.contains(green[1][2]+""))
+			return 4;
+		/// now yellow
+		else if (s.contains(yellow[2][1]+"") && s.contains(red[2][1]+""))
+			return 5;
+		else if (s.contains(yellow[1][1]+"") && s.contains(blue[2][1]+""))
+			return 6;
+		else if (s.contains(yellow[0][1]+"") && s.contains(orange[2][1]+""))
+			return 7;
+		else if (s.contains(yellow[1][2]+"") && s.contains(green[2][1]+""))
+			return 8;
+		
+		return 0;
+		
+		
 	}
 
 	private static void sloveFirstLayer() {
@@ -867,7 +1252,7 @@ public class MainRubix {
 	}
 
 	private static void r_() {
-		System.out.println(++itr + " perform r *");
+		System.out.println(++itr + " perform r *");// down
 		char c[] = new char[3];
 		for (int i = 0; i < 3; i++) {
 			c[i] = white[i][0];
@@ -968,12 +1353,12 @@ public class MainRubix {
 	}
 
 	private static void fillCollors() {
-		String w = "rggbwwbgg";
-		String r = "woobrgrgy";
-		String b = "yrrybbbyw";
-		String o = "wwyooogor";
-		String g = "byoygrwwg";
-		String y = "owbrybory";
+		String w = "gywrwygyg";
+		String r = "rbrwryygy";
+		String b = "wrrgbgrgb";
+		String o = "bowooooow";
+		String g = "obybgrobg";
+		String y = "ywbrywbwo";
 
 		white = fill(w);
 		red = fill(r);

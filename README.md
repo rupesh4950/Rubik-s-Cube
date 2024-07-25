@@ -1,1 +1,5 @@
-This code will give the instruction to slove the rubix cube based on the input you given . Its still in development state only, It will get sloved soon
+# Rubiks Cube 
+
+This code will give the instruction to slove the rubix cube based on the input you given .
+And the code to slove the first layer is already pushed .
+can upll the code and execuite

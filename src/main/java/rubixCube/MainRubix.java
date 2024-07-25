@@ -36,10 +36,75 @@ public class MainRubix {
 	}
 
 	private static void sloveThirdLayer() {
-		// keep red on your side ---only dev
-		// f l r u d --   b
+		slovePlusOnYellow();
 		
 		
+	}
+
+	private static void slovePlusOnYellow() {
+		ArrayList<Integer> v = getAllYellowsONtop();
+		if(v.size()==0) {
+			System.out.println("perofom reverser L operation");
+			reverseL();
+		}
+	int r=	checkLPosstion();
+		while(r>0) {
+			r--;
+			yu();
+		}
+		v = getAllYellowsONtop();
+		while(v.size()!=4) {
+			
+			reverseL();
+			v = getAllYellowsONtop();
+			System.out.println(v.size());
+		}
+		
+	}
+
+	private static int checkLPosstion() {
+		ArrayList<Integer> v = getAllYellowsONtop();
+		System.out.println(v);
+		if(v.contains(1)&& v.contains(4))
+			return 0;
+		if(v.contains(1)&& v.contains(2))
+			return 3;
+		if(v.contains(2)&& v.contains(3))
+			return 2;
+		if(v.contains(3)&& v.contains(4))
+			return 1;
+		if(v.contains(1)&& v.contains(3))
+			return 1;
+		if(v.contains(2)&& v.contains(4))
+			return 0;
+		
+	return 0;
+		
+	}
+
+	private static void reverseL() {
+		yf();
+		yl_();
+		yu();
+		yl();
+		yu_();
+		yf_();
+		
+		
+		
+	}
+
+	private static ArrayList<Integer> getAllYellowsONtop() {
+		ArrayList<Integer> a=new ArrayList<Integer>();
+		if(yellow[0][1]=='y')
+			a.add(1);
+		if(yellow[1][2]=='y')
+			a.add(2);
+		if(yellow[2][1]=='y')
+			a.add(3);
+		if(yellow[1][0]=='y')
+			a.add(4);
+		return a;
 	}
 
 	private static void yb_() {
@@ -1353,12 +1418,12 @@ public class MainRubix {
 	}
 
 	private static void fillCollors() {
-		String w = "gywrwygyg";
-		String r = "rbrwryygy";
-		String b = "wrrgbgrgb";
-		String o = "bowooooow";
-		String g = "obybgrobg";
-		String y = "ywbrywbwo";
+		String w = "wwwwwwwww";
+		String r = "rrrrrryyr";
+		String b = "bbbbbbyyb";
+		String o = "ooooooyyo";
+		String g = "gggggggyo";
+		String y = "rrybyoggb";
 
 		white = fill(w);
 		red = fill(r);

@@ -15,6 +15,25 @@ public class MainRubix {
 	static char green[][] = new char[3][];
 	static char yellow[][] = new char[3][];
 	static int itr = 0;
+	
+
+	private static void fillCollors() {
+		String w = "worbwbyyb";
+		String r = "rrwyrgoog";
+		String b = "rrgwbrwyy";
+		String o = "ybogowowo";
+		String g = "gwbrgoyyw";
+		String y = "gobbygrgb";
+
+		white = fill(w);
+		red = fill(r);
+		blue = fill(b);
+		orange = fill(o);
+		green = fill(g);
+		yellow = fill(y);
+		printAll();
+
+	}
 
 //f f' l l' u u' r r' b b' d d'
 	// f front blue side
@@ -31,55 +50,277 @@ public class MainRubix {
 
 	private static void slove() {
 		sloveFirstLayer();
-		sloveSecondLayer();
-		sloveThirdLayer();
+		printAll();
+//		sloveSecondLayer();
+//		printAll();
+//		sloveThirdLayer();
 	}
 
 	private static void sloveThirdLayer() {
 		slovePlusOnYellow();
+		sloveMiddlesOfYellow();
+		sloveToKeepCornersOfYellowAtPosstion();
+		sloveCornersOfYellow();
+
+	}
+
+	private static void sloveCornersOfYellow() {
+		System.out.println("Sloving the corners of the Yellow");
+		for(int i=0;i<4;i++) {
+			while(!isYellowOnTopCorner()) {
+				serCorner();
+			}
+			yu();
+		}
+		
+	}
+
+	private static void serCorner() {
+		System.out.println("********");
+		yl();
+		yd();
+		yl_();
+		yd_();
+		
+	}
+
+	private static boolean isYellowOnTopCorner() {
+		// TODO Auto-generated method stub
+		System.out.println(yellow[2][2]);
+		if(yellow[2][2]=='y')
+			return true;
+		else 
+			return false;
+		
+	}
+
+	private static void sloveToKeepCornersOfYellowAtPosstion() {
+		// TODO Auto-generated method stub
+		System.out.println("------------------------------------");
+		//setting the red 
+		setRedCornerAtPosstion();
+
+		
+		
+		////////////////////////////////////////
+		
+		int  p = getTheColorPossitonOnYellowCorner('r','b');
+		if(p==0) {
+			System.out.println("some error in the inputs");
+			return;
+		}
+		if(p==2) {
+			System.out.println("all colours at the possiton ");
+			return;
+		}
+		else {
+			System.out.println("setting blue color at the posstion");
+			cornerRoteteFromRight();
+			if(p==4) {
+				cornerRoteteFromRight();
+			}
+		}
+		
+		
+		System.out.println("blue color is set at possiton so all colores are at posstion");
+
+	}
+
+	private static void setRedCornerAtPosstion() {
+		System.out.println("setting red and green");
+		int p = getTheColorPossitonOnYellowCorner('r','g');
+		if(p==0) {
+			System.out.println("some input error check");
+			return;
+		}
+		if(p==1) {
+			System.out.println("red and green is already at the possition");
+			return;
+		}
+		else {
+			if(p==2) {
+				System.out.println("red and green possiton is at "+p);
+				cornerRoteteFromRight();
+				cornerRoteteFromLeft();	
+			}
+			else if(p==3) {
+				cornerRoteteFromLeft();	
+				cornerRoteteFromLeft();	
+			}
+			else if (p==4) {
+				cornerRoteteFromLeft();	
+			}
+			
+		}
+		System.out.println(" red and green set at possition");
+	}
+
+	private static void cornerRoteteFromLeft() {
+		System.out.println("corner rotate form left");
+		yu_();
+		yr();
+		yu();
+		yl_();
+		yu_();
+		yr_();
+		yu();
+		yl();
+		
+	}
+
+	private static void cornerRoteteFromRight() {
+		System.out.println("corner rotate form right");
+		yu();
+		yl_();
+		yu_();
+		yr();
+		yu();
+		yl();
+		yu_();
+		yr_();
 		
 		
 	}
 
+	private static int getTheColorPossitonOnYellowCorner(char c, char d) {
+		
+
+		if ((yellow[2][2] == c || red[2][0] == c || green[2][2] == c)&&(yellow[2][2] == d || red[2][0] == d || green[2][2] == d)) {
+			return 1;
+		}
+		if ((yellow[2][0] == c || red[2][2] == c || blue[2][0] == c)&&(yellow[2][0] == d|| red[2][2] == d || blue[2][0] == d)) {
+			return 2;
+		}
+		if ((yellow[0][0] == c || orange[2][0] == c || blue[2][2] == c)&&(yellow[0][0] == d || orange[2][0] == d || blue[2][2] == d)) {
+			return 3;
+		}
+		if((yellow[0][2] == c || orange[2][2] == c || green[2][0] == c)&& (yellow[0][2] == d|| orange[2][2] == d|| green[2][0] ==d )){
+			return 4;
+		}
+
+		return 0;
+	}
+
+	private static void sloveMiddlesOfYellow() {
+		setRedAtPossition();
+		setBlueAtPossition();
+		// setting remaing 2 colors
+
+		int p = getThePositionOFColorYellow('g');
+		if (p == 4) {
+			System.out.println("all middles set can go further");
+		} else if (p == 3) {
+			// perofmr action
+			yu();
+			yu();
+			yelloMiddleSide();
+		} else {
+			System.out.println("some issue with your input give valid input");
+		}
+		setRedAtPossition();
+		System.out.println("All middles of Yellow are set now need to set the corners");
+	}
+
+	private static void setBlueAtPossition() {
+		int p = getThePositionOFColorYellow('b');
+		if (p == 2) {
+			System.out.println("red is alredy at possiton");
+		} else {
+			int itr = 4 - 2;
+			while (itr > 0) {
+				itr--;
+				yelloMiddleSide();
+			}
+		}
+
+	}
+
+	private static void setRedAtPossition() {
+		int p = getThePositionOFColorYellow('r');
+		if (p == 0) {
+			return;
+		}
+		if (p == 1) {
+			System.out.println("red is alredy at possiton");
+		} else {
+			for (int i = 1; i < p; i++) {
+				yu_();
+			}
+		}
+
+	}
+
+	private static void yelloMiddleSide() {
+		System.out.println("----------");
+		yl_();
+		yu();
+		yl();
+		yu();
+		yl_();
+		yu();
+		yu();
+		yl();
+
+	}
+
+	private static int getThePositionOFColorYellow(char c) {
+
+		if (red[2][1] == c)
+			return 1;
+		else if (blue[2][1] == c)
+			return 2;
+		else if (orange[2][1] == c)
+			return 3;
+		else if (green[2][1] == c)
+			return 4;
+
+		System.out.println("invalid given inputs");
+		return 0;
+	}
+
 	private static void slovePlusOnYellow() {
+		System.out.println("inside method");
+		printAll();
 		ArrayList<Integer> v = getAllYellowsONtop();
-		if(v.size()==0) {
+		System.out.println("size is 266 is "+ v);
+		if (v.size() == 0) {
 			System.out.println("perofom reverser L operation");
 			reverseL();
 		}
-	int r=	checkLPosstion();
-		while(r>0) {
+		int r = checkLPosstion();
+		System.out.println("size is 272 is "+ v);
+		while (r > 0) {
 			r--;
 			yu();
 		}
 		v = getAllYellowsONtop();
-		while(v.size()!=4) {
-			
+		while (v.size() != 4) {
+
 			reverseL();
 			v = getAllYellowsONtop();
 			System.out.println(v.size());
 		}
-		
+
 	}
 
 	private static int checkLPosstion() {
 		ArrayList<Integer> v = getAllYellowsONtop();
-		System.out.println(v);
-		if(v.contains(1)&& v.contains(4))
+		//System.out.println(v);
+		if (v.contains(1) && v.contains(4))
 			return 0;
-		if(v.contains(1)&& v.contains(2))
+		if (v.contains(1) && v.contains(2))
 			return 3;
-		if(v.contains(2)&& v.contains(3))
+		if (v.contains(2) && v.contains(3))
 			return 2;
-		if(v.contains(3)&& v.contains(4))
+		if (v.contains(3) && v.contains(4))
 			return 1;
-		if(v.contains(1)&& v.contains(3))
+		if (v.contains(1) && v.contains(3))
 			return 1;
-		if(v.contains(2)&& v.contains(4))
+		if (v.contains(2) && v.contains(4))
 			return 0;
-		
-	return 0;
-		
+
+		return 0;
+
 	}
 
 	private static void reverseL() {
@@ -89,82 +330,80 @@ public class MainRubix {
 		yl();
 		yu_();
 		yf_();
-		
-		
-		
+
 	}
 
 	private static ArrayList<Integer> getAllYellowsONtop() {
-		ArrayList<Integer> a=new ArrayList<Integer>();
-		if(yellow[0][1]=='y')
+		ArrayList<Integer> a = new ArrayList<Integer>();
+		if (yellow[0][1] == 'y')
 			a.add(1);
-		if(yellow[1][2]=='y')
+		if (yellow[1][2] == 'y')
 			a.add(2);
-		if(yellow[2][1]=='y')
+		if (yellow[2][1] == 'y')
 			a.add(3);
-		if(yellow[1][0]=='y')
+		if (yellow[1][0] == 'y')
 			a.add(4);
 		return a;
 	}
 
 	private static void yb_() {
 		b_();
-		
+
 	}
 
 	private static void yb() {
 		b();
-		
+
 	}
 
 	private static void yd_() {
 		u();
-		
+
 	}
 
 	private static void yd() {
 		u_();
-		
+
 	}
 
 	private static void yu_() {
 		d();
-		
+
 	}
 
 	private static void yu() {
 		d_();
-		
+
 	}
 
 	private static void yr() {
 		l();
-		
+
 	}
 
 	private static void yr_() {
 		l_();
-		
+
 	}
 
 	private static void yl_() {
 		r_();
-		
+
 	}
 
 	private static void yl() {
 		r();
-		
+
 	}
 
 	private static void yf_() {
 		f_();
-		
+
 	}
 
 	private static void yf() {
 		f();
-		
+
 	}
 
 	private static void sloveSecondLayer() {
@@ -172,50 +411,47 @@ public class MainRubix {
 		redAndBlueMiddle();
 		orangeAndBlue();
 		orangeAndGreen();
-		
-		
+
 	}
 
 	private static void orangeAndGreen() {
 		System.out.println("=========");
-		int p=findPossitionOf("og");
+		int p = findPossitionOf("og");
 		System.out.println(p);
-		if(p==0) {
+		if (p == 0) {
 			System.out.println("something went wrong check the colour inputs");
 			return;
 		}
-		if(p==4) {
-			if(orange[1][2]=='o') {
+		if (p == 4) {
+			if (orange[1][2] == 'o') {
 				System.out.println("orange and green is alreday at possition");
 				return;
-			}
-			else {
+			} else {
 				m4Down();
 			}
 		}
-		p=findPossitionOf("og");
-		System.out.println("og"+p);
-		int truns=(7-p);
-		boolean entered=false;
-		while(truns>0) {
-			entered=true;
+		p = findPossitionOf("og");
+		System.out.println("og" + p);
+		int truns = (7 - p);
+		boolean entered = false;
+		while (truns > 0) {
+			entered = true;
 			d_();
 			truns--;
 		}
-		if(!entered) {
-			truns=Math.abs(truns);
-			while(truns>0) {
-				entered=true;
+		if (!entered) {
+			truns = Math.abs(truns);
+			while (truns > 0) {
+				entered = true;
 				d();
 				truns--;
 			}
 		}
 		System.out.println("orange and green is at down seta the  down -------");
-		if(orange[2][1]=='o') {
+		if (orange[2][1] == 'o') {
 			System.out.println("orange is on top green down");
 			m3Down();
-		}
-		else {
+		} else {
 			System.out.println("green is on top orange down");
 			d();
 			d();
@@ -227,55 +463,50 @@ public class MainRubix {
 			d_();
 			r_();
 		}
-		
-		
-		
+
 	}
 
 	private static void orangeAndBlue() {
 		System.out.println("=========");
-		int p=findPossitionOf("ob");
+		int p = findPossitionOf("ob");
 		System.out.println(p);
-		if(p==0) {
+		if (p == 0) {
 			System.out.println("something went wrong check the colour inputs");
 			return;
 		}
-		if(p==3) {
-			if(orange[1][0]=='o') {
+		if (p == 3) {
+			if (orange[1][0] == 'o') {
 				System.out.println("orange and blue is already  at the possiton");
-				return ;
-			}
-			else {
+				return;
+			} else {
 				m3Down();
 			}
-		}
-		else if(p==4) {
+		} else if (p == 4) {
 			m4Down();
 		}
-		
-		p=findPossitionOf("ob");
-		System.out.println("ob"+p);
-		int truns=(7-p);
-		boolean entered=false;
-		while(truns>0) {
-			entered=true;
+
+		p = findPossitionOf("ob");
+		System.out.println("ob" + p);
+		int truns = (7 - p);
+		boolean entered = false;
+		while (truns > 0) {
+			entered = true;
 			d_();
 			truns--;
 		}
-		if(!entered) {
-			truns=Math.abs(truns);
-			while(truns>0) {
-				entered=true;
+		if (!entered) {
+			truns = Math.abs(truns);
+			while (truns > 0) {
+				entered = true;
 				d();
 				truns--;
 			}
 		}
 		System.out.println("orange and blue is at down seta the  down -------");
-		if(orange[2][1]=='o') {
+		if (orange[2][1] == 'o') {
 			System.out.println("orange is on top blue down");
 			m3Down();
-		}
-		else {
+		} else {
 			System.out.println("blue is on top orange is down");
 			d();
 			d();
@@ -287,53 +518,50 @@ public class MainRubix {
 			d();
 			l();
 		}
-		
-		
-		
+
 	}
 
 	private static void redAndBlueMiddle() {
-		System.out.println("=========");
-		int p=findPossitionOf("rb");
+		System.out.println("========= sloving red and blue");
+		System.out.println(orange[1][0] );
+		System.out.println(blue[1][2] );
+		printAll();
+		int p = findPossitionOf("rb");
 		System.out.println(p);
-		if(p==0) {
-			System.out.println("something went wrong check the colour inputs");
+		if (p == 0) {
+			System.out.println("something went wrong check the colour inputs"+5/0);
 			return;
 		}
-		if(p<=4) {
-			if(p==2) {
-				if(red[1][2]=='r') {
+		if (p <= 4) {
+			if (p == 2) {
+				if (red[1][2] == 'r') {
 					System.out.println("red and blue alreday at place ");
-					return ;
-				}
-				else {
+					return;
+				} else {
 					// m2 to down
 					m2Down();
-				
+
 				}
-			}
-			else if(p==3) {
-				//m3 down
+			} else if (p == 3) {
+				// m3 down
 				m3Down();
-			}
-			else if(p==4) {
+			} else if (p == 4) {
 				m4Down();
 			}
 		}
-		p=findPossitionOf("rb");
-		System.out.println("rb "+p);
-		int truns=p-5;
-		
-		while(truns>0) {
+		p = findPossitionOf("rb");
+		System.out.println("rb " + p);
+		int truns = p - 5;
+
+		while (truns > 0) {
 			d();
 			truns--;
 		}
 		System.out.println("red and blue is at down seta the  down -------");
-		if(red[2][1]=='r') {
+		if (red[2][1] == 'r') {
 			System.out.println("red is on top blue down");
 			m2Down();
-		}
-		else {
+		} else {
 			System.out.println("blue is on top red is down");
 			d();
 			d();
@@ -343,59 +571,55 @@ public class MainRubix {
 			d();
 			l();
 			d_();
-			l_();		
+			l_();
 		}
-		
+
 	}
 
 	private static void redAndGreenMiddle() {
+		printAll();
 		System.out.println("=========");
-		int p=findPossitionOf("rg");
+		int p = findPossitionOf("rg");
 		System.out.println(p);
-		if(p==0) {
+		if (p == 0) {
 			System.out.println("something went wrong check the colour inputs");
 			return;
 		}
-		if(p<=4) {
-			if(p==1) {
-				if(red[1][0]=='r') {
+		if (p <= 4) {
+			if (p == 1) {
+				if (red[1][0] == 'r') {
 					System.out.println("red and green alreday at place ");
-					return ;
-				}
-				else {
+					return;
+				} else {
 					// m1 to down
 					m1Down();
-				
+
 				}
-			}
-			else if(p==2) {
+			} else if (p == 2) {
 				// m2 to down
 				m2Down();
-			}
-			else if(p==3) {
-				//m3 down
+			} else if (p == 3) {
+				// m3 down
 				m3Down();
-			}
-			else if(p==4) {
+			} else if (p == 4) {
 				m4Down();
 			}
 		}
-		p=findPossitionOf("rg");
-		System.out.println("rg "+p);
-		int truns=p-5;
-		
-		while(truns>0) {
+		p = findPossitionOf("rg");
+		System.out.println("rg " + p);
+		int truns = p - 5;
+
+		while (truns > 0) {
 			d();
 			truns--;
 		}
 		System.out.println("set at the down -------");
-		if(red[2][1]=='r') {
+		if (red[2][1] == 'r') {
 			// red at possition
 			System.out.println("red is on the middle top");
-			m1Down();	
-		}
-		else {
-			//green is on top
+			m1Down();
+		} else {
+			// green is on top
 			System.out.println("green is on to middle top");
 			d();
 			d();
@@ -405,9 +629,14 @@ public class MainRubix {
 			d_();
 			r_();
 			d();
-			r();	
+			r();
+			
 		}
-		
+		System.out.println("==========");
+		System.out.println(orange[1][0] );
+		System.out.println(blue[1][2] );
+		System.out.println("==========");
+
 	}
 
 	private static void m4Down() {
@@ -418,7 +647,7 @@ public class MainRubix {
 		d();
 		r();
 		d_();
-		r_();	
+		r_();
 	}
 
 	private static void m3Down() {
@@ -430,7 +659,7 @@ public class MainRubix {
 		l_();
 		d();
 		l();
-		
+
 	}
 
 	private static void m2Down() {
@@ -442,7 +671,7 @@ public class MainRubix {
 		f();
 		d();
 		f_();
-		
+
 	}
 
 	private static void m1Down() {
@@ -454,86 +683,85 @@ public class MainRubix {
 		f_();
 		d_();
 		f();
-		
+
 	}
 
 	private static int findPossitionOf(String s) {
 //		char c=s.charAt(0);
 //		char d=s.charAt(1);
-		if(s.contains(red[1][0]+"") && s.contains(green[1][2]+""))
+		System.out.println(orange[1][0] );
+		System.out.println(blue[1][2] );
+		if (s.contains(red[1][0] + "") && s.contains(green[1][2] + ""))
 			return 1;
-		else if (s.contains(red[1][2]+"") && s.contains(blue[1][0]+""))
+		else if (s.contains(red[1][2] + "") && s.contains(blue[1][0] + ""))
 			return 2;
-		else if (s.contains(orange[1][0]+"") && s.contains(blue[1][2]+""))
+		else if (s.contains(orange[1][0] + "") && s.contains(blue[1][2] + "")) {
+			
 			return 3;
-		else if (s.contains(orange[1][2]+"") && s.contains(green[1][2]+""))
+		}
+		else if (s.contains(orange[1][2] + "") && s.contains(green[1][2] + ""))
 			return 4;
 		/// now yellow
-		else if (s.contains(yellow[2][1]+"") && s.contains(red[2][1]+""))
+		else if (s.contains(yellow[2][1] + "") && s.contains(red[2][1] + ""))
 			return 5;
-		else if (s.contains(yellow[1][1]+"") && s.contains(blue[2][1]+""))
+		else if (s.contains(yellow[1][1] + "") && s.contains(blue[2][1] + ""))
 			return 6;
-		else if (s.contains(yellow[0][1]+"") && s.contains(orange[2][1]+""))
+		else if (s.contains(yellow[0][1] + "") && s.contains(orange[2][1] + ""))
 			return 7;
-		else if (s.contains(yellow[1][2]+"") && s.contains(green[2][1]+""))
+		else if (s.contains(yellow[1][2] + "") && s.contains(green[2][1] + ""))
 			return 8;
-		
+
 		return 0;
-		
-		
+
 	}
 
 	private static void sloveFirstLayer() {
 		makeAPlusWithWhite();
-		arrangeWhitesAtExacte();
-		setTheCorners();
+		// till here working fine
+	//	arrangeWhitesAtExacte();
+		System.out.println("arrangin at exact place =============================");
+	//	setTheCorners();
 
 	}
 
 	private static void setTheCorners() {
 		// firest set rwb
+		printAll();
 		setRWB();
+		printAll();
 		setRWG();
 		setWGO();
 		setWBO();
-
 	}
 
 	private static void setWBO() {
 		System.out.println("===========================");
 		int possiton = getPossitonOf("wbo");
 		System.out.println("possition of WBO is " + possiton);
-		if(possiton==1) {
-			//no chance to present thre
-		}
-		else if(possiton==2) {
+		if (possiton == 1) {
+			// no chance to present thre
+		} else if (possiton == 2) {
 			// at possition no need to change
-		}
-		else if(possiton==3) {
-			//no chance to present thre
-		}
-		else if(possiton==4) {
-			//no chance to present thre
-		}
-		else if(possiton==5) {
+		} else if (possiton == 3) {
+			// no chance to present thre
+		} else if (possiton == 4) {
+			// no chance to present thre
+		} else if (possiton == 5) {
 			d();
 			d();
-		}
-		else if(possiton==6) {
+		} else if (possiton == 6) {
 			d_();
-		}
-		else if(possiton==7) {
+		} else if (possiton == 7) {
 			d();
+		} else if (possiton == 8) {
+			// no meed to do anythine
 		}
-		else if(possiton==8) {
-			//no meed to do anythine
-		}
-		while(!(white[0][2]=='w'&&blue[0][2]=='b'&& orange[0][0]=='o')) {
+		while (!(white[0][2] == 'w' && blue[0][2] == 'b' && orange[0][0] == 'o')) {
 			l_();
 			d_();
 			l();
 			d();
-			
+
 		}
 	}
 
@@ -541,36 +769,29 @@ public class MainRubix {
 		System.out.println("===========================");
 		int possiton = getPossitonOf("wgo");
 		System.out.println("possition of WGO is " + possiton);
-		if(possiton==1) {
+		if (possiton == 1) {
 			// no need to do anything
-		}
-		else if(possiton==2) {
+		} else if (possiton == 2) {
 			b_();
 			d();
 			b();
 			d();
 			d();
-		}
-		else if(possiton==3) {
-			//no change at 3
-		}
-		else if(possiton==4) {
+		} else if (possiton == 3) {
+			// no change at 3
+		} else if (possiton == 4) {
 			// no chance at 4 already set the value
-		}
-		else if(possiton==5) {
+		} else if (possiton == 5) {
 			d();
-		}
-		else if(possiton==6) {
+		} else if (possiton == 6) {
 			d();
 			d();
-		}
-		else if(possiton==7) {
+		} else if (possiton == 7) {
 			// mp meed pt dp anything
-		}
-		else if(possiton==8) {
+		} else if (possiton == 8) {
 			d_();
 		}
-		while(!(white[0][0]=='w'&&green[0][0]=='g'&& orange[0][2]=='o')) {
+		while (!(white[0][0] == 'w' && green[0][0] == 'g' && orange[0][2] == 'o')) {
 			r();
 			d();
 			r_();
@@ -582,38 +803,31 @@ public class MainRubix {
 		System.out.println("===========================");
 		int possiton = getPossitonOf("wrg");
 		System.out.println("possition of WRG is " + possiton);
-		if(possiton==1) {
+		if (possiton == 1) {
 			b();
 			d_();
 			b_();
-		}
-		else if(possiton==2) {
+		} else if (possiton == 2) {
 			b_();
 			d();
 			d();
 			b();
-		}
-		else if(possiton==3) {
+		} else if (possiton == 3) {
 			// no need to do anything
-		}
-		else if(possiton==4) {
+		} else if (possiton == 4) {
 			// no chance to present at 4
-		}
-		else if(possiton==5) {
+		} else if (possiton == 5) {
 			// no need to do anythine
-		}
-		else if(possiton==6) {
+		} else if (possiton == 6) {
 			d();
-		}
-		else if(possiton==7) {
+		} else if (possiton == 7) {
 			d_();
-		}
-		else if(possiton==8) {
+		} else if (possiton == 8) {
 			d();
 			d();
 		}
-		
-		while(!(white[2][0]=='w'&&red[0][0]=='r'&& green[0][2]=='g')) {
+
+		while (!(white[2][0] == 'w' && red[0][0] == 'r' && green[0][2] == 'g')) {
 			r_();
 			d_();
 			r();
@@ -630,6 +844,7 @@ public class MainRubix {
 			d_();
 			b_();
 			d();
+			
 		} else if (possiton == 2) {
 			b_();
 			d();
@@ -647,19 +862,21 @@ public class MainRubix {
 		} else if (possiton == 7) {
 			d();
 			d();
-		}
-		else if(possiton==8) {
+		} else if (possiton == 8) {
 			d();
 		}
-		while(!(white[2][2]=='w'&&red[0][2]=='r'&& blue[0][0]=='b')) {
+		System.out.println("possiton of white red blue is"+getPossitonOf("wrb"));
+		printAll();
+		int itr=2;
+		while (++itr<=1&&!(white[2][2] == 'w' && red[0][2] == 'r' && blue[0][0] == 'b')) {
 			l();
 			d();
 			l_();
 			d_();
+			printAll();
 		}
+		
 	}
-
-	
 
 	private static Integer getPossitonOf(String c) {
 		HashMap<Integer, String> val = getAllColorAtCorner();
@@ -702,6 +919,7 @@ public class MainRubix {
 
 	private static void arrangeWhitesAtExacte() {
 		HashMap<Integer, Character> v = getLocationsOfOthersColorsWithPluesMiddles();
+		System.out.println("v values is "+v);
 		if (v.get(1) != 'o') {
 			System.out.println("its not equral to orange need ot change");
 			int n = getIndexOfColor('o', v);
@@ -887,37 +1105,40 @@ public class MainRubix {
 	private static void makeAPlusWithWhite() {
 		// firest need to move all white to top
 		ArrayList<String> v = findAllWhites();
-		ArrayList<String> comp = new ArrayList<String>();
+		
+		int itr=0;
 		while (true) {
-			// v.removeAll(comp);
-			if (v.size() == 0) {
-				break;
+			v = findAllWhites();
+			ArrayList<String> comp = new ArrayList<String>();
+			for(int i=0;i<4;i++) {
+				if (v.get(i).contains("w")) {
+					comp.add(v.get(i));
+				}		
 			}
-
+			v.removeAll(comp);
+			System.out.println(v);
 			String s = v.get(0);
 			if (s.contains("w")) {
 				comp.add(s);
 				v.remove(s);
 				System.out.println("already present");
+				
 			} else if (s.contains("r")) {
+				comp.add(s);
 				System.out.println("values are " + v);
 				sloveMiddleWhiteAtRed(s);
-				v = findAllWhites();
 			} else if (s.contains("b")) {
+				comp.add(s);
 				System.out.println("values are " + v);
 				sloveMiddleWhiteAtBlue(s);
-				v = findAllWhites();
-				// break;
 			} else if (s.contains("o")) {
+				comp.add(s);
 				System.out.println("values are " + v);
 				sloveMiddleWhiteAtOrange(s);
-				v = findAllWhites();
 			}
-
 			else if (s.contains("g")) {
 				System.out.println("values are " + v);
 				sloveMiddleWhiteAtGreen(s);
-				v = findAllWhites();
 			} else if (s.contains("y")) {
 				System.out.println("values are " + v);
 				sloveMiddleWhiteAtYellow(s);
@@ -1268,6 +1489,9 @@ public class MainRubix {
 
 	private static void d_() {
 		System.out.println(++itr + " perform d * down green to red ");
+		if(itr>300) {
+			System.out.println(5/0);
+		}
 		char c[] = red[2];
 		red[2] = green[2];
 		green[2] = orange[2];
@@ -1417,23 +1641,6 @@ public class MainRubix {
 
 	}
 
-	private static void fillCollors() {
-		String w = "wwwwwwwww";
-		String r = "rrrrrryyr";
-		String b = "bbbbbbyyb";
-		String o = "ooooooyyo";
-		String g = "gggggggyo";
-		String y = "rrybyoggb";
-
-		white = fill(w);
-		red = fill(r);
-		blue = fill(b);
-		orange = fill(o);
-		green = fill(g);
-		yellow = fill(y);
-		printAll();
-
-	}
 
 	private static void printAll() {
 		print(white, "White");
